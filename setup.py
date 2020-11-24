@@ -54,7 +54,7 @@ setup(
       "lxml",
       "click",
       "six",
-      "enum34"
+      "enum34",
     ],
     tests_require=test_deps,
     extras_require=extras,

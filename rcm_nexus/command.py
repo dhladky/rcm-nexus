@@ -94,7 +94,7 @@ def push(repo, environment, product, version, ga=False, debug=False):
             exit(1)
 
         session = Session(nexus_config, debug=debug)
-        print("Pushing: %s content to: %s" % (repo.decode("utf-8"), environment))
+        print("Pushing: %s content to: %s" % (repo, environment))
 
         zips_dir = None
         try:

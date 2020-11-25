@@ -94,7 +94,7 @@ def push(repo, environment, product, version, ga=False, debug=False):
             exit(1)
 
         session = Session(nexus_config, debug=debug)
-        print("Pushing: %s content to: %s" % (repo.decode("utf-8"), environment))
+        print("Pushing: %s content to: %s" % (repo, environment))
 
         zips_dir = None
         try:
@@ -203,9 +203,13 @@ def rollback(staging_repo_name, environment, debug=False):
     default="prod",
 )
 @click.option("--npm", help="Display only npm products", is_flag=True, default=False)
-@click.option("--java", "--mvn", "---maven", help="Display only java products", is_flag=True, default=False)
-def list_products(environment, npm, java):
+@click.option("--java", "--mvn", "--maven", help="Display only java products", is_flag=True, default=False)
+def list_products(environment, npm, java=False, maven=False):
     """ Lists all configured products. It is possible to filter the results to npm/java products using the switches. """
+    # Workaround for ancient version of click available on RHEL 6. It uses the
+    # last option name for the keyword argument. No matter which alias is used,
+    # old click uses maven kwargs, new click uses java kwargs.
+    java = java or maven
     nexus_config = config.load(environment)
     fmt = None
     if sys.stdout.isatty():

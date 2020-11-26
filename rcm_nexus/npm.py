@@ -74,9 +74,17 @@ def _create_npmrc_file(nexus_config, directory, product):
     :param product: product
     """
     with open(os.path.join(directory, ".npmrc"), "wt") as f:
-        f.write("_auth=" + base64.standard_b64encode((
-            (":".join((nexus_config.username, nexus_config.password))))))
+        if sys.version_info[0] < 3:
+            # noinspection PyTypeChecker
+            f.write("_auth=" + base64.standard_b64encode((
+                (":".join((nexus_config.username, nexus_config.password))))))
+        else:
+            # noinspection PyTypeChecker
+            f.write("_auth=" + base64.standard_b64encode(bytes(":".join((nexus_config.username, nexus_config.password)),
+                                                               "UTF-8")).decode("UTF-8"))
+
         f.write("\n")
+
         if nexus_config.preemptive_auth:
             f.write("always-auth=true")
         f.write("registry = " + _npm_repository(nexus_config, product))

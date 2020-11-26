@@ -9,7 +9,7 @@ if sys.version_info >= (3,):
 else:
     use_2to3 = False
 
-version = "2.0.0"
+version = "2.0.1"
 
 f = open('README.rst')
 long_description = f.read().strip()
@@ -25,7 +25,8 @@ test_deps = [
 extras = {
   'test': test_deps,
   'build': ['tox'],
-  'ci': ['coverage']
+  'ci': ['coverage'],
+  ':python_version<"3.0"': ['enum34'],
 }
 
 setup(
@@ -54,7 +55,6 @@ setup(
       "lxml",
       "click",
       "six",
-      "enum34"
     ],
     tests_require=test_deps,
     extras_require=extras,

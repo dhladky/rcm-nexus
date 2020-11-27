@@ -1,6 +1,6 @@
 Name:		python-rcm-nexus
-Version:	2.0.0
-Release:	3%{?dist}
+Version:	2.0.2
+Release:	1%{?dist}
 Summary:	RCM Tools for Working with the Sonatype Nexus Repository Manager
 
 License:	GNU General Public License Version 3
@@ -40,6 +40,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 12 2020  David Hladky <dhladky at, redhat.com> 2.0.2-1
+- NEXUS-349 - Old Versions of Click Library Process Arguments in Reverse Order
+- NEXUS-350 - Yet Another Python2 vs Python3 Error in npm Deployment
+
 * Mon Oct 12 2020  David Hladky <dhladky at, redhat.com> 2.0.0-3
 - NEXUS-326 - Implement Push of NPM Modules to Repository
 - NEXUS-329 - Remove Many Warnings in the Code

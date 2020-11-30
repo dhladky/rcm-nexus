@@ -40,6 +40,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 30 2020  David Hladky <dhladky at, redhat.com> 2.0.3-1
+- NEXUS-352 - On npm Deployment Workflow if Password is not Set the Utility Does not Ask for Password
+- NEXUS-351 - Wrong Error Output When git Command Fails
+
 * Mon Oct 12 2020  David Hladky <dhladky at, redhat.com> 2.0.2-1
 - NEXUS-349 - Old Versions of Click Library Process Arguments in Reverse Order
 - NEXUS-350 - Yet Another Python2 vs Python3 Error in npm Deployment

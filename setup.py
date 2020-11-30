@@ -9,7 +9,7 @@ if sys.version_info >= (3,):
 else:
     use_2to3 = False
 
-version = "2.0.2"
+version = "2.0.3"
 
 f = open('README.rst')
 long_description = f.read().strip()

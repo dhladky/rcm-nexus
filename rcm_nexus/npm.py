@@ -77,12 +77,12 @@ def _create_npmrc_file(nexus_config, directory, product):
         if sys.version_info[0] < 3:
             # noinspection PyTypeChecker
             f.write("_auth=" + base64.standard_b64encode((
-                (":".join((nexus_config.username, nexus_config.password))))))
+                (":".join((nexus_config.username, nexus_config.get_password()))))))
         else:
             # noinspection PyTypeChecker
-            f.write("_auth=" + base64.standard_b64encode(bytes(":".join((nexus_config.username, nexus_config.password)),
+            f.write("_auth=" + base64.standard_b64encode(bytes(":".join((nexus_config.username,
+                                                                         nexus_config.get_password())),
                                                                "UTF-8")).decode("UTF-8"))
-
         f.write("\n")
 
         if nexus_config.preemptive_auth:
@@ -169,8 +169,8 @@ def push(nexus_config, repo, repo_type, product, debug=False):
                 expanded_repo += '/'
 
             if debug:
-                print("Temporary directory: "+tempdir)
-                print("Repository: "+expanded_repo)
+                print("Temporary directory: " + tempdir)
+                print("Repository: " + expanded_repo)
 
             copy_command = ('cp', '-rf', expanded_repo, tempdir)
             subprocess.check_output(copy_command)
@@ -179,8 +179,8 @@ def push(nexus_config, repo, repo_type, product, debug=False):
 
         elif repo_type == NpmArchiveType.ZIP_FILE:
             if debug:
-                print("Temporary directory: "+tempdir)
-                print("Repository: "+expanded_repo)
+                print("Temporary directory: " + tempdir)
+                print("Repository: " + expanded_repo)
 
             with zipfile.ZipFile(expanded_repo) as zz:
                 zz.extractall(tempdir)
@@ -198,9 +198,9 @@ def push(nexus_config, repo, repo_type, product, debug=False):
             package = os.path.join(tempdir, os.path.split(expanded_repo)[-1])
 
             if debug:
-                print("Temporary directory: "+tempdir)
-                print("Repository: "+expanded_repo)
-                print("Target repository: "+package)
+                print("Temporary directory: " + tempdir)
+                print("Repository: " + expanded_repo)
+                print("Target repository: " + package)
 
             # publish the tarball using npm
             command = ["npm", "publish", package]

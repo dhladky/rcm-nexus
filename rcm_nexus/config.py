@@ -157,7 +157,7 @@ class NexusConfig(object):
 
     def get_password(self):
         if self.password and self.password.startswith("@oracle:"):
-            return eval_password(self.username, oracle=self.password, interactive=self.interactive)
+            self.password = eval_password(self.username, oracle=self.password, interactive=self.interactive)
         return self.password
 
     def _get_profiles(self, product):
@@ -298,9 +298,15 @@ def _clone_config_repo(destination, repo_url, limit_depth=True):
     cmd = ["git", "clone"]
     if limit_depth:
         cmd.append("--depth=1")
-    subprocess.check_call(
-        cmd + [repo_url, destination], stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+
+    cmd.append(repo_url)
+    cmd.append(destination)
+    try:
+        subprocess.check_call(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except:
+        print(" ".join(cmd), file=sys.stderr)
+        die("Error extracting configuration from the GIT repository!")
 
 
 def _normalize_dir_name(dir_name):
